@@ -2,51 +2,53 @@
 
     class modelUsuario {
         
-        private $userName;
-        private $userLogin;
-        private $userPass;
+        private $id;
+        private $username;
+        private $senha;
 
-        public function getUserName() {
-            return $this->userName;
+        public function getId() {
+                return $this->id;
         }
 
-        public function setUserName($sUserName) {
-            $this->userName = $sUserName;
+        public function setId($id) {
+                $this->id = $id;
+                return $this;
         }
 
-        public function getUserLogin() {
-            return $this->userLogin;
+        public function getUsername() {
+                return $this->username;
         }
 
-        public function setUserLogin($sUserLogin) {
-            $this->userLogin = $sUserLogin;
+        public function setUsername($username) {
+                $this->username = $username;
+                return $this;
         }
 
-        public function getUserPass() {
-            return $this->userPass;
+        public function getSenha() {
+                return $this->senha;
         }
 
-        public function setUserPass($sUserPass) {
-            $this->userPass = $sUserPass;
+        public function setSenha($senha) {
+                $this->senha = $senha;
+                return $this;
         }
 
-        public function setData($origem) {
-            $this->userName  = $origem["nome"];
-            $this->userLogin = $origem["login"];
-            $this->userPass  = $origem["pass"];
-        }
-
-        public function update() {
-            if($this->getUserLogin() && $this->getUserPass()) {
-                Application::getInstance()->getDataBase()->newQuery()->UPDATE("usuario", 
-                                                        ["nome", "pass"],
-                                                        [$this->getUserName(), $this->getUserPass()],
-                                                        "login = " . $this->getUserLogin()
-                                                       );
-            } else {
-                throw new Exception("Dados de Login e Senha são obrigatórios.");                
+        public function validaLogin($sUsuario, $sSenha) {
+            $oQuery = Application::getInstance()->getDataBase()->newQuery();
+            $oQuery->setSql(
+                "SELECT * 
+                   FROM tbusuario 
+                  WHERE usuusername = '$sUsuario'"
+            );
+            $oQuery->open();
+            while($row = $oQuery->getNextRow()) {
+                if($row['ususenha'] == $sSenha) {
+                    return true;
+                }
             }
+            return false;
         }
+
     }
 
 ?>

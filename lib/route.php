@@ -24,16 +24,16 @@
                     $this->className = "view_novo";
                     break;                
                 case 'inserir':
-                    $this->resource = "model";
-                    $this->className = "model";
+                    $this->resource = "controller";
+                    $this->className = "controller";
                     break;
                 case 'atualizar':
-                    $this->resource = "model";
-                    $this->className = "model";
+                    $this->resource = "controller";
+                    $this->className = "controller";
                     break;
                 case 'excluir':
-                    $this->resource = "model";
-                    $this->className = "model";
+                    $this->resource = "controller";
+                    $this->className = "controller";
                     break;
                 default:
                     $this->resource = "controller";
@@ -103,7 +103,7 @@
                 if(class_exists($class)) {
                     return new $class;
                 }
-            }             
+            }
         }
     }
 ?>

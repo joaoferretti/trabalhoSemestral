@@ -44,10 +44,6 @@
             return null;
         }
 
-        public function getTimeElapsed() {
-            //Retornar o tempo já passado da sessão desde o seu início;
-        }
-
         public function finalizaSessao() {
             session_write_close();
             $this->sessionId = null;
